@@ -1,0 +1,46 @@
+{
+  "name": "my-new-project",
+  "main": "node_modules/expo/AppEntry.js",
+  "private": true,
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "export": "expo export --public-url https://raw.githubusercontent.com/1016482011/bager-mobile/master",
+    "build-android": "expo build:android",
+    "build-ios": "expo build:ios",
+    "publish": "expo publish",
+    "eject": "expo eject",
+    "test": "node ./node_modules/jest/bin/jest.js --watchAll"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  },
+  "dependencies": {
+    "@expo/vector-icons": "^8.0.0",
+    "date-fns": "^1.29.0",
+    "expo": "^31.0.6",
+    "expo-cli": "2.6.14",
+    "graphql-request": "^1.8.2",
+    "lodash": "^4.17.11",
+    "native-base": "^2.8.1",
+    "react": "16.5.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
+    "react-native-actionsheet": "^2.4.2",
+    "react-native-easy-toast": "^1.1.0",
+    "react-native-elements": "^0.19.1",
+    "react-native-image-progress": "^1.1.1",
+    "react-native-image-zoom-viewer": "^2.2.23",
+    "react-native-progress": "^3.5.0",
+    "react-native-shadow": "^1.2.2",
+    "react-navigation": "^3.0.7",
+    "react-redux": "^5.1.0",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
+    "rn-placeholder": "^1.3.0"
+  },
+  "devDependencies": {
+    "babel-preset-expo": "^5.0.0",
+    "jest-expo": "^31.0.0"
+  }
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>移动端地图</title>
+
+    <style>
+        #container {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+    <script>
+        var iconBase64 =
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA0dJREFUeNrEWb9v01AQvpgUKEXAVNiaAitqRgakBoEEA1I8MLHUExMSZqJsydaN9C8gWZhTiQEkUIOExEgssSLaDToliBSh0oa78iwlxPG753fPOenkKPKz77v77ns/XBgOh2BrP+7dvICXivIyegl9aeSWCL2H3kHvnnu13QYhK9gAwMAp4AB9zXBoH51A1BDMTu4AMHDKcgN9VSCJLfQQgfSyDPYyBF/Dyyeh4EFVbwef6zutgOJ5E70K7mwTKxGKA1DBUwOugHtrIYhAmkLNnII/phQmrCEGQHG+CvnaY25PpFJIyeQ2zMZIaks6dSpqHsIu5YnLV6F4/cbx76O9b/Dn4wcYDn7aADiv3h9kqgBmnwa+4Lxp7vZdmA+fTvz/+2ULvWlbieW0yS6tB9hKcPD2NRy8ezPx/6kHazD/ZN0WQM24iTH7Jc5ERZmP7dfzjUQQc7fuQPFa2QaAn0WFfA7niTajGSYQR3vfJ+49Wb1v1QtKTIQBqKxShmMQdPUWL06918IqpiqkfWNh4ewYTSjIpOD/3bvgDICXImGpRlI59qApwZMdfo6cTRbelHWP1kjn2QuuxUtjFctgqyYVYBGWJinSeVaWsDpnNhq2INgAutzBNEklSWdi0y9fcQIicSZGGhlt00jnSSqpkalhifNEm6S+OPz6BfbXQ9NlRoSzcdkEQI/TyDqVooxT5gVAvEcAFRMV6tqWloKjIClYATp1TGW0I8FPHYjTDx9xH9U1BSB2bpMKgjdD99POkRIB4ICuOoxyCoJJoXbWLWVDUu5iECS7tOAbDgaw/4x1AFGz2VLSRmIJZmfaEwrdpj6YYfB9Xfa1ABA9qdHmjACwzk09JgejnIPfwuBZPagFoI41AlXSPGzXhLqskzklq2FOvPdNTqrZp9P4UDofaTkGEKpkgTiA+AUO+6GlkgTOAKjS+g76IcpKUeMPHEraAmHeB7l9oVEg2oLzgzHv2UsJneFSg168Ysl7q2p6ltmz6YfMvBcDYNEPxnrvqgJxP9QNhwW234dFeuC/fqCFH+fTq/GXSKcVMOyHSDJ4UQAjk1wq76Wnb8kKxPuHumveO+kBTT/UMfgaODAP3JivVq67LoMn+yvAAK0dZ2tQYX9qAAAAAElFTkSuQmCC"
+        window.onLoad = function () {
+            document.addEventListener('message', function (msg) {
+                var data = JSON.parse(msg.data)
+                var map = new AMap.Map('container', {
+                    // center: data.location,
+                    zoom: 10
+                });
+
+                function showInfoM(e) {
+                    window.postMessage(JSON.stringify(e.target.getExtData()))
+                }
+                data.proList.forEach(function (v) {
+                    if (v.longitude && v.latitude) {
+                        var marker = new AMap.Marker({
+                            map: map,
+                            icon: iconBase64,
+                            position: [v.longitude, v.latitude],
+                            extData: {
+                                id: v.id
+                            }
+                        });
+                        marker.on('click', showInfoM);
+                        map.add(marker);
+                    }
+                })
+            })
+        }
+        var url = 'https://webapi.amap.com/maps?v=1.4.10&key=72421b4f50cab8477288ad1282d3220a&callback=onLoad';
+        var jsapi = document.createElement('script');
+        jsapi.charset = 'utf-8';
+        jsapi.src = url;
+        document.head.appendChild(jsapi);
+    </script>
+</body>
+
+</html>
